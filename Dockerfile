@@ -1,17 +1,17 @@
-# Use the official Python image as the base image
-FROM python:3.9-slim
+FROM python:3.9-alpine
 
-# Set the working directory in the container
+# Set working directory
 WORKDIR /app
 
-# Copy the current directory contents into the container
-COPY . /app
+# Install dependencies
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install required Python packages
-RUN pip install flask
+# Copy application code
+COPY . /app/
 
-# Expose the port that the app will run on
+# Expose application port
 EXPOSE 5000
 
-# Command to run the application
+# Command to run the app
 CMD ["python", "app.py"]
